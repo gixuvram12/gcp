@@ -24,7 +24,8 @@ const getActorSchema = async (request, response, next) => {
 const addQuoteSchema = async (request, response, next) => {
     const addQuoteSchema = Joi.object().keys({
         actor: nameSchema.required(),
-        quote: nameSchema.required()
+        quote: nameSchema.required(),
+        film_name: nameSchema.required()
     });
     const joiResponse = addQuoteSchema.validate(request.body);
     return !joiResponse.error ? next() : response.status(400).json(getMiddlewareResponse('joi_validation', joiResponse.error.details[0]));
