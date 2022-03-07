@@ -7,6 +7,7 @@ const { DATA_SAVED, GCP } = require('../../constants/constant-keys');
 
         const filmList = [];
 
+      //Collecting all film list
         admin.firestore().collection(GCP).get()
         .then(data => {
           data.docs.forEach(doc => {
@@ -25,6 +26,7 @@ const { DATA_SAVED, GCP } = require('../../constants/constant-keys');
 
         const film_title = request.query.film_title;
 
+        //fetching movie quotes attributed to the film
         admin
         .firestore()
         .collection(GCP)
@@ -42,7 +44,8 @@ const { DATA_SAVED, GCP } = require('../../constants/constant-keys');
     const getActor = async function(request, response) {
 
       const {film_name, quote} = request.query;
-
+      const getActorData = [];
+      //fetching actor name attributed to the quote
       admin
       .firestore()
       .collection(GCP)
@@ -54,10 +57,10 @@ const { DATA_SAVED, GCP } = require('../../constants/constant-keys');
         Object.keys(responseData).forEach(function(key) {
           var value = responseData[key];
           if(value.quote === quote){
-            data.push(value)
+            getActorData.push(value)
           }
       });
-        response.status(200).json(getResponse('gcp_controller', data))
+        response.status(200).json(getResponse('gcp_controller', getActorData))
       })
       .catch(error => {
         response.status(500).json(getErrorResponse('gcp_controller', error));
@@ -71,6 +74,7 @@ const { DATA_SAVED, GCP } = require('../../constants/constant-keys');
     const collection = db.collection(GCP);
     const {actor, quote, film_name} = request.body;
 
+    //adding actor and quote attributed to the quote
     collection.doc(film_name).update({
       desc: admin.firestore.FieldValue.arrayUnion(
         {actor: actor,

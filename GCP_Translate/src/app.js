@@ -27,3 +27,5 @@ app.use(morgan(morganConfig));
 app.listen(PORT, () => {
   console.log(`GCP server running at ${PORT}`)
 })
+
+module.exports = app;
