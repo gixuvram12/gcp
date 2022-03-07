@@ -33,10 +33,14 @@ const { DATA_SAVED, GCP } = require('../../constants/constant-keys');
         .doc(film_title)
         .get()
         .then((data) => { 
-          response.status(200).json(getResponse('gcp_controller', data.data()));
+          const res = data.data().desc;
+          const filteredData = res.filter(el => {
+            return delete el['actor'];
+          })
+          response.status(200).json(getResponse('gcp_controller', filteredData));
         })
         .catch(error => {
-          response.status(500).json(getErrorResponse('gcp_controller', error));
+          response.status(500).json(getErrorResponse('catch_error', error));
         });
 
     }
@@ -63,7 +67,7 @@ const { DATA_SAVED, GCP } = require('../../constants/constant-keys');
         response.status(200).json(getResponse('gcp_controller', getActorData))
       })
       .catch(error => {
-        response.status(500).json(getErrorResponse('gcp_controller', error));
+        response.status(500).json(getErrorResponse('catch_error', error));
       });
 
   }
@@ -84,7 +88,7 @@ const { DATA_SAVED, GCP } = require('../../constants/constant-keys');
       response.status(200).json(getResponse('gcp_controller', DATA_SAVED));
     })
     .catch(error => {
-      response.status(500).json(getErrorResponse('gcp_controller', error));
+      response.status(500).json(getErrorResponse('catch_error', error));
     });
 
 }
