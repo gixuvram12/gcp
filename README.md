@@ -8,7 +8,7 @@ For development, you will only need Node.js and a node global package, npm, inst
 - #### Node installation on Windows
 
   Just go on [official Node.js website](https://nodejs.org/) and download the installer.
-Also, be sure to have `git` available in your PATH, `npm` might need it (You can find git [here](https://git-scm.com/)).
+Also, be sure to have `git` available in your PATH, `npm` might need it.
 
 - #### Node installation on Ubuntu
 
@@ -44,21 +44,26 @@ If you need to update `npm`, you can make it using `npm`! Cool right? After runn
 
     $ npm start
 
+## Unit testing
+
+    $ npm run test
+    
 ## Endpoints
 
--    {baseurl}/gcp -> GET
+-    {baseurl}/get_films -> GET
 
 
 -    {baseurl}/get_quotes -> GET 
-    params: {"film_title": ""}
+    params: {"film_title": "", "language", ""}
 
 
 -    {baseurl}/get_actor -> GET
-    params: {"quote": "", "film_name": ""}
+    params: {"quote": "", "film_name": "", "language": ""}
 
 
 -    {baseurl}/add_quote -> POST
     params: {
-        "actor": "ajay1",
-        "quote": "test qoute1" 
+        "actor": "", "quote": "", "film_name": ""
     }
+
+-    {baseurl}/translate -> GET

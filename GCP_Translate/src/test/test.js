@@ -1,7 +1,6 @@
-const { getFilms, getQuotes, getActor, addQuote } = require('../api/gcp/gcp-controller');
 let chai = require('chai');
-let chaiHttp = require('chai-http');
-let server = require('../app');
+const chaiHttp = require('chai-http');
+const server = require('../app');
 chai.should();
 chai.use(chaiHttp);
 
@@ -59,5 +58,18 @@ describe('/POST quote', () => {
                 res.body.should.have.property('res_code').eql(1);
             done();
           })
+    });
+});
+
+describe('/GET message from topic', () => {
+    it('it should GET message from topic and store in firestore', (done) => {
+      chai.request(server)
+          .get('/translate')
+          .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('res_code').eql(1);
+            done();
+          });
     });
 });
