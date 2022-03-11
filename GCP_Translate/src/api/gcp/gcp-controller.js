@@ -173,8 +173,10 @@ const firestore = new Firestore();
           response.status(500).json(getErrorResponse('catch_error', error));
         });
         })
-          messageCount += 1;
-          message.ack();
+        //acknowledge here after single data taken from pub/sub
+        //(acknowledge can be done here even multiple data in pub/sub)
+        messageCount += 1;
+        message.ack();
       }
 
       subscription.on('message', messageHandler);
