@@ -167,14 +167,14 @@ const firestore = new Firestore();
           desc
         })
         .then(()=> {
-          messageCount += 1;
-          message.ack();
           response.status(200).json(getResponse('gcp_controller', translationText));
         })
         .catch(error => {
           response.status(500).json(getErrorResponse('catch_error', error));
         });
         })
+          messageCount += 1;
+          message.ack();
       }
 
       subscription.on('message', messageHandler);
